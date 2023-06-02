@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -47,7 +48,9 @@ public class ToileController implements Initializable {
     @FXML
     private TextField Comp6;
     @FXML
-    private Label LabelErreur;
+    private Label LabelErreur1;
+    @FXML
+    private Label LabelErreur2;
     @FXML
     private Pane PToile;
     private Circle PComp1 = new Circle();
@@ -63,11 +66,15 @@ public class ToileController implements Initializable {
     private Line LComp4 = new Line();
     private Line LComp5 = new Line();
     private Line LComp6 = new Line();
+    private Line[] ListLine = {LComp1, LComp2, LComp3, LComp4, LComp5, LComp6};
+    private boolean[] LineOk = {false, false, false, false, false, false};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PToile.getChildren().addAll(PComp1, PComp2, PComp3, PComp4, PComp5, PComp6, LComp1, LComp2, LComp3, LComp4, LComp5, LComp6);
-        LabelErreur.setVisible(false);
-        LabelErreur.setStyle("-fx-background-color: #FF0000");
+        LabelErreur1.setVisible(false);
+        LabelErreur1.setTextFill(Color.RED);
+        LabelErreur2.setVisible(false);
+        LabelErreur2.setTextFill(Color.RED);
 
         //Taille et visibilité des points
         PComp1.setRadius(5);
@@ -104,113 +111,130 @@ public class ToileController implements Initializable {
         if (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20) {
             PComp1.setCenterX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             PComp1.setCenterY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
-            LabelErreur.setVisible(false);
+            LabelErreur1.setVisible(false);
+            LabelErreur2.setVisible(false);
             PComp1.setVisible(true);
 
             LComp6.setEndX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             LComp6.setEndY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
-            LComp6.setVisible(true);
+            LineOk[0] = true;
             LComp1.setStartX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             LComp1.setStartY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
         } else {
-            LabelErreur.setVisible(true);
+            LabelErreur1.setVisible(true);
+            LabelErreur2.setVisible(true);
             PComp1.setVisible(false);
-            LComp6.setVisible(false);
-            LComp1.setVisible(false);
-        } if (Double.parseDouble(Comp2.getText()) >= 0 && Double.parseDouble(Comp2.getText()) <= 20 && Comp2.is) {
+            LineOk[0] = false;
+        } if (Double.parseDouble(Comp2.getText()) >= 0 && Double.parseDouble(Comp2.getText()) <= 20) {
             //Placement du point
             PComp2.setCenterX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             PComp2.setCenterY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
-            LabelErreur.setVisible(false);
+            LabelErreur1.setVisible(false);
+            LabelErreur2.setVisible(false);
             PComp2.setVisible(true);
 
             //Placement des lignes
             LComp1.setEndX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             LComp1.setEndY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
-            LComp1.setVisible(true);
+            LineOk[1] = true;
             LComp2.setStartX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             LComp2.setStartY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
         } else {
-            LabelErreur.setVisible(true);
+            LabelErreur1.setVisible(true);
+            LabelErreur2.setVisible(true);
             PComp2.setVisible(false);
-            LComp1.setVisible(false);
-            LComp2.setVisible(false);
+            LineOk[1] = false;
         } if (Double.parseDouble(Comp3.getText()) >= 0 && Double.parseDouble(Comp3.getText()) <= 20) {
             PComp3.setCenterX(getXRadarChart(Double.parseDouble(Comp3.getText()), 3));
             PComp3.setCenterY(getYRadarChart(Double.parseDouble(Comp3.getText()), 3));
-            LabelErreur.setVisible(false);
+            LabelErreur1.setVisible(false);
+            LabelErreur2.setVisible(false);
             PComp3.setVisible(true);
 
             //Placement des lignes
             LComp2.setEndX(getXRadarChart(Double.parseDouble(Comp3.getText()), 3));
             LComp2.setEndY(getYRadarChart(Double.parseDouble(Comp3.getText()), 3));
-            LComp2.setVisible(true);
+            LineOk[2] = true;
             LComp3.setStartX(getXRadarChart(Double.parseDouble(Comp3.getText()), 3));
             LComp3.setStartY(getYRadarChart(Double.parseDouble(Comp3.getText()), 3));
         } else {
-            LabelErreur.setVisible(true);
+            LabelErreur1.setVisible(true);
+            LabelErreur2.setVisible(true);
             PComp3.setVisible(false);
-            LComp2.setVisible(false);
-            LComp3.setVisible(false);
+            LineOk[2] = false;
         } if (Double.parseDouble(Comp4.getText()) >= 0 && Double.parseDouble(Comp4.getText()) <= 20) {
             PComp4.setCenterX(getXRadarChart(Double.parseDouble(Comp4.getText()), 4));
             PComp4.setCenterY(getYRadarChart(Double.parseDouble(Comp4.getText()), 4));
-            LabelErreur.setVisible(false);
+            LabelErreur1.setVisible(false);
+            LabelErreur2.setVisible(false);
             PComp4.setVisible(true);
 
             //Placement des lignes
             LComp3.setEndX(getXRadarChart(Double.parseDouble(Comp4.getText()), 4));
             LComp3.setEndY(getYRadarChart(Double.parseDouble(Comp4.getText()), 4));
-            LComp3.setVisible(true);
+            LineOk[3] = true;
             LComp4.setStartX(getXRadarChart(Double.parseDouble(Comp4.getText()), 4));
             LComp4.setStartY(getYRadarChart(Double.parseDouble(Comp4.getText()), 4));
         } else {
-            LabelErreur.setVisible(true);
+            LabelErreur1.setVisible(true);
+            LabelErreur2.setVisible(true);
             PComp4.setVisible(false);
-            LComp3.setVisible(false);
-            LComp4.setVisible(false);
-
+            LineOk[3] = false;
         } if (Double.parseDouble(Comp5.getText()) >= 0 && Double.parseDouble(Comp5.getText()) <= 20) {
             PComp5.setCenterX(getXRadarChart(Double.parseDouble(Comp5.getText()), 5));
             PComp5.setCenterY(getYRadarChart(Double.parseDouble(Comp5.getText()), 5));
-            LabelErreur.setVisible(false);
+            LabelErreur1.setVisible(false);
+            LabelErreur2.setVisible(false);
             PComp5.setVisible(true);
 
             //Placement des lignes
             LComp4.setEndX(getXRadarChart(Double.parseDouble(Comp5.getText()), 5));
             LComp4.setEndY(getYRadarChart(Double.parseDouble(Comp5.getText()), 5));
-            LComp4.setVisible(true);
+            LineOk[4] = true;
             LComp5.setStartX(getXRadarChart(Double.parseDouble(Comp5.getText()), 5));
             LComp5.setStartY(getYRadarChart(Double.parseDouble(Comp5.getText()), 5));
         } else {
-            LabelErreur.setVisible(true);
-            PComp5.setVisible(true);
-            LComp4.setVisible(false);
-            LComp5.setVisible(false);
+            LabelErreur1.setVisible(true);
+            LabelErreur2.setVisible(true);
+            PComp5.setVisible(false);
+            LineOk[4] = false;
         } if (Double.parseDouble(Comp6.getText()) >= 0 && Double.parseDouble(Comp6.getText()) <= 20) {
             PComp6.setCenterX(getXRadarChart(Double.parseDouble(Comp6.getText()), 6));
             PComp6.setCenterY(getYRadarChart(Double.parseDouble(Comp6.getText()), 6));
-            LabelErreur.setVisible(false);
+            LabelErreur1.setVisible(false);
+            LabelErreur2.setVisible(false);
             PComp6.setVisible(true);
 
             //Placement des lignes
             LComp5.setEndX(getXRadarChart(Double.parseDouble(Comp6.getText()), 6));
             LComp5.setEndY(getYRadarChart(Double.parseDouble(Comp6.getText()), 6));
-            LComp5.setVisible(true);
+            LineOk[5] = true;
             LComp6.setStartX(getXRadarChart(Double.parseDouble(Comp6.getText()), 6));
             LComp6.setStartY(getYRadarChart(Double.parseDouble(Comp6.getText()), 6));
         } else {
-            LabelErreur.setVisible(true);
+            LabelErreur1.setVisible(true);
+            LabelErreur2.setVisible(true);
             PComp6.setVisible(false);
-            LComp6.setVisible(false);
-            LComp5.setVisible(false);
+            LineOk[5] = false;
         }
-
+        for (int i = 0; i < LineOk.length-1; i+=1) {
+            if (LineOk[i] && LineOk[i+1]) {
+                ListLine[i].setVisible(true);
+            } else {
+                ListLine[i].setVisible(false);
+            }
+        }
+        if (LineOk[5] && LineOk[0]) {
+            ListLine[5].setVisible(true);
+        } else {
+            ListLine[5].setVisible(false);
+        }
     }
     
     public void ViderPoints() {
         //Disparition du message d'erreur
-        LabelErreur.setVisible(false);
+        LabelErreur1.setVisible(false);
+        LabelErreur2.setVisible(false);
         //Disparition des points
         PComp1.setVisible(false);
         PComp2.setVisible(false);
