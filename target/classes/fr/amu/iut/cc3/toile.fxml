@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 
-<HBox alignment="CENTER" id="scene" prefHeight="430.0" prefWidth="700.0" spacing="20.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.cc3.ToileController" style="-fx-background-color: #6cafbe">
+<HBox alignment="CENTER" id="scene" prefHeight="430.0" prefWidth="700.0" spacing="20.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.amu.iut.cc3.ToileController" style="-fx-background-color: #bcd0fb">
     <Pane prefHeight="400.0" prefWidth="400.0" fx:id="PToile">
         <Circle centerX="200.0" centerY="200.0" radius="200.0" styleClass="toile"/>
         <Circle centerX="200.0" centerY="200.0" radius="150.0" styleClass="toile"/>
