@@ -60,15 +60,17 @@ public class ToileController implements Initializable {
     private Circle PComp4 = new Circle();
     private Circle PComp5 = new Circle();
     private Circle PComp6 = new Circle();
-    private TextField[] ListComp = {Comp1, Comp2, Comp3, Comp4, Comp5, Comp6};
     private Line LComp1 = new Line();
     private Line LComp2 = new Line();
     private Line LComp3 = new Line();
     private Line LComp4 = new Line();
     private Line LComp5 = new Line();
     private Line LComp6 = new Line();
+    private TextField[] ListComp = {Comp1, Comp2, Comp3, Comp4, Comp5, Comp6};
+    private Circle[] ListPoints = {PComp1, PComp2, PComp3, PComp4, PComp5, PComp6};
     private Line[] ListLine = {LComp1, LComp2, LComp3, LComp4, LComp5, LComp6};
     private boolean[] LineOk = {false, false, false, false, false, false};
+    private boolean[] ListErreur = {false, false, false, false, false, false};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         PToile.getChildren().addAll(PComp1, PComp2, PComp3, PComp4, PComp5, PComp6, LComp1, LComp2, LComp3, LComp4, LComp5, LComp6);
@@ -112,11 +114,12 @@ public class ToileController implements Initializable {
     }
 
     public void TracerPoints() {
+
+        //test
         if (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20) {
             PComp1.setCenterX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             PComp1.setCenterY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
-            LabelErreur1.setVisible(false);
-            LabelErreur2.setVisible(false);
+            ListErreur[0] = false;
             PComp1.setVisible(true);
 
             //Placement des lignes
@@ -126,15 +129,50 @@ public class ToileController implements Initializable {
             LComp1.setStartX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             LComp1.setStartY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
         } else {
-            LabelErreur1.setVisible(true);
-            LabelErreur2.setVisible(true);
             PComp1.setVisible(false);
             LineOk[0] = false;
+            ListErreur[0] = true;
+        }
+        for (int i = 1; i < ListComp.length; i+=1) {
+            if (Double.parseDouble(ListComp[i].getText()) >= 0 && Double.parseDouble(ListComp[i].getText()) <= 20) {
+                ListPoints[i].setCenterX(getXRadarChart(Double.parseDouble(ListComp[i].getText()), 1));
+                ListPoints[i].setCenterY(getYRadarChart(Double.parseDouble(ListComp[i].getText()), 1));
+                ListErreur[i] = false;
+                ListComp[i].setVisible(true);
+
+                ListLine[i-1].setEndX(getXRadarChart(Double.parseDouble(ListComp[i].getText()), 1));
+                ListLine[i-1].setEndY(getYRadarChart(Double.parseDouble(ListComp[i].getText()), 1));
+                LineOk[0] = true;
+                ListLine[i].setStartX(getXRadarChart(Double.parseDouble(ListComp[i].getText()), 1));
+                ListLine[i].setStartY(getYRadarChart(Double.parseDouble(ListComp[i].getText()), 1));
+            } else {
+                ListErreur[i] = true;
+                ListPoints[i].setVisible(false);
+                LineOk[i] = false;
+            }
+        }
+        //fin test
+
+        /*if (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20) {
+            PComp1.setCenterX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
+            PComp1.setCenterY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
+            ListErreur[0] = false;
+            PComp1.setVisible(true);
+
+            //Placement des lignes
+            LComp6.setEndX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
+            LComp6.setEndY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
+            LineOk[0] = true;
+            LComp1.setStartX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
+            LComp1.setStartY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
+        } else {
+            PComp1.setVisible(false);
+            LineOk[0] = false;
+            ListErreur[0] = true;
         } if (Double.parseDouble(Comp2.getText()) >= 0 && Double.parseDouble(Comp2.getText()) <= 20) {
             PComp2.setCenterX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             PComp2.setCenterY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
-            LabelErreur1.setVisible(false);
-            LabelErreur2.setVisible(false);
+            ListErreur[1] = false;
             PComp2.setVisible(true);
 
             //Placement des lignes
@@ -144,15 +182,13 @@ public class ToileController implements Initializable {
             LComp2.setStartX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             LComp2.setStartY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
         } else {
-            LabelErreur1.setVisible(true);
-            LabelErreur2.setVisible(true);
             PComp2.setVisible(false);
             LineOk[1] = false;
+            ListErreur[1] = true;
         } if (Double.parseDouble(Comp3.getText()) >= 0 && Double.parseDouble(Comp3.getText()) <= 20) {
             PComp3.setCenterX(getXRadarChart(Double.parseDouble(Comp3.getText()), 3));
             PComp3.setCenterY(getYRadarChart(Double.parseDouble(Comp3.getText()), 3));
-            LabelErreur1.setVisible(false);
-            LabelErreur2.setVisible(false);
+            ListErreur[2] = false;
             PComp3.setVisible(true);
 
             //Placement des lignes
@@ -162,15 +198,13 @@ public class ToileController implements Initializable {
             LComp3.setStartX(getXRadarChart(Double.parseDouble(Comp3.getText()), 3));
             LComp3.setStartY(getYRadarChart(Double.parseDouble(Comp3.getText()), 3));
         } else {
-            LabelErreur1.setVisible(true);
-            LabelErreur2.setVisible(true);
             PComp3.setVisible(false);
             LineOk[2] = false;
+            ListErreur[2] = true;
         } if (Double.parseDouble(Comp4.getText()) >= 0 && Double.parseDouble(Comp4.getText()) <= 20) {
             PComp4.setCenterX(getXRadarChart(Double.parseDouble(Comp4.getText()), 4));
             PComp4.setCenterY(getYRadarChart(Double.parseDouble(Comp4.getText()), 4));
-            LabelErreur1.setVisible(false);
-            LabelErreur2.setVisible(false);
+            ListErreur[3] = false;
             PComp4.setVisible(true);
 
             //Placement des lignes
@@ -180,15 +214,13 @@ public class ToileController implements Initializable {
             LComp4.setStartX(getXRadarChart(Double.parseDouble(Comp4.getText()), 4));
             LComp4.setStartY(getYRadarChart(Double.parseDouble(Comp4.getText()), 4));
         } else {
-            LabelErreur1.setVisible(true);
-            LabelErreur2.setVisible(true);
             PComp4.setVisible(false);
             LineOk[3] = false;
+            ListErreur[0] = true;
         } if (Double.parseDouble(Comp5.getText()) >= 0 && Double.parseDouble(Comp5.getText()) <= 20) {
             PComp5.setCenterX(getXRadarChart(Double.parseDouble(Comp5.getText()), 5));
             PComp5.setCenterY(getYRadarChart(Double.parseDouble(Comp5.getText()), 5));
-            LabelErreur1.setVisible(false);
-            LabelErreur2.setVisible(false);
+            ListErreur[4] = false;
             PComp5.setVisible(true);
 
             //Placement des lignes
@@ -198,15 +230,13 @@ public class ToileController implements Initializable {
             LComp5.setStartX(getXRadarChart(Double.parseDouble(Comp5.getText()), 5));
             LComp5.setStartY(getYRadarChart(Double.parseDouble(Comp5.getText()), 5));
         } else {
-            LabelErreur1.setVisible(true);
-            LabelErreur2.setVisible(true);
             PComp5.setVisible(false);
             LineOk[4] = false;
+            ListErreur[4] = true;
         } if (Double.parseDouble(Comp6.getText()) >= 0 && Double.parseDouble(Comp6.getText()) <= 20) {
             PComp6.setCenterX(getXRadarChart(Double.parseDouble(Comp6.getText()), 6));
             PComp6.setCenterY(getYRadarChart(Double.parseDouble(Comp6.getText()), 6));
-            LabelErreur1.setVisible(false);
-            LabelErreur2.setVisible(false);
+            ListErreur[5] = false;
             PComp6.setVisible(true);
 
             //Placement des lignes
@@ -216,11 +246,10 @@ public class ToileController implements Initializable {
             LComp6.setStartX(getXRadarChart(Double.parseDouble(Comp6.getText()), 6));
             LComp6.setStartY(getYRadarChart(Double.parseDouble(Comp6.getText()), 6));
         } else {
-            LabelErreur1.setVisible(true);
-            LabelErreur2.setVisible(true);
             PComp6.setVisible(false);
             LineOk[5] = false;
-        }
+            ListErreur[5] = true;
+        }*/
         for (int i = 0; i < LineOk.length-1; i+=1) {
             if (LineOk[i] && LineOk[i+1]) {
                 ListLine[i].setVisible(true);
@@ -232,6 +261,15 @@ public class ToileController implements Initializable {
             ListLine[5].setVisible(true);
         } else {
             ListLine[5].setVisible(false);
+        }
+        for (int i = 0; i < ListErreur.length; i+=1) {
+            if (LineOk[i]) {
+                LabelErreur1.setVisible(true);
+                LabelErreur2.setVisible(true);
+            } else {
+                LabelErreur1.setVisible(false);
+                LabelErreur1.setVisible(false);
+            }
         }
     }
     
@@ -253,6 +291,7 @@ public class ToileController implements Initializable {
         LComp4.setVisible(false);
         LComp5.setVisible(false);
         LComp6.setVisible(false);
+        //Vidage des TextFiedls
         Comp1.setText("");
         Comp2.setText("");
         Comp3.setText("");
