@@ -10,22 +10,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ToileController implements Initializable {
@@ -53,6 +48,12 @@ public class ToileController implements Initializable {
     private Label LabelErreur2;
     @FXML
     private Pane PToile;
+    @FXML
+    private GridPane GP = new GridPane();
+    @FXML
+    private Button Tracer = new Button();
+    @FXML
+    private HBox scene = new HBox();
     private Circle PComp1 = new Circle();
     private Circle PComp2 = new Circle();
     private Circle PComp3 = new Circle();
@@ -75,6 +76,9 @@ public class ToileController implements Initializable {
         LabelErreur1.setTextFill(Color.RED);
         LabelErreur2.setVisible(false);
         LabelErreur2.setTextFill(Color.RED);
+        //Tracer.
+        GP.setHgap(10);
+        GP.setVgap(10);
 
         //Taille et visibilité des points
         PComp1.setRadius(5);
@@ -97,6 +101,7 @@ public class ToileController implements Initializable {
         LComp4.setStyle("-fx-stroke: black;");
         LComp5.setStyle("-fx-stroke: black;");
         LComp6.setStyle("-fx-stroke: black;");
+
         //Lignes inapparentes
         LComp1.setVisible(false);
         LComp2.setVisible(false);
@@ -104,7 +109,6 @@ public class ToileController implements Initializable {
         LComp4.setVisible(false);
         LComp5.setVisible(false);
         LComp6.setVisible(false);
-
     }
 
     public void TracerPoints() {
@@ -115,6 +119,7 @@ public class ToileController implements Initializable {
             LabelErreur2.setVisible(false);
             PComp1.setVisible(true);
 
+            //Placement des lignes
             LComp6.setEndX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             LComp6.setEndY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
             LineOk[0] = true;
@@ -126,7 +131,6 @@ public class ToileController implements Initializable {
             PComp1.setVisible(false);
             LineOk[0] = false;
         } if (Double.parseDouble(Comp2.getText()) >= 0 && Double.parseDouble(Comp2.getText()) <= 20) {
-            //Placement du point
             PComp2.setCenterX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             PComp2.setCenterY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
             LabelErreur1.setVisible(false);
