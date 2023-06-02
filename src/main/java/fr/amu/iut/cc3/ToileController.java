@@ -1,5 +1,7 @@
 package fr.amu.iut.cc3;
 
+import java.util.*;
+import java.lang.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -115,8 +117,8 @@ public class ToileController implements Initializable {
 
     public void TracerPoints() {
 
-        //test
-        if (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20) {
+        //Test d'optimisation
+        /*if (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20) {
             PComp1.setCenterX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             PComp1.setCenterY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
             ListErreur[0] = false;
@@ -150,10 +152,10 @@ public class ToileController implements Initializable {
                 ListPoints[i].setVisible(false);
                 LineOk[i] = false;
             }
-        }
-        //fin test
+        }*/
+        //Fin du test
+        if (EstConforme(Comp1.getText()) && (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20)) {
 
-        /*if (Double.parseDouble(Comp1.getText()) >= 0 && Double.parseDouble(Comp1.getText()) <= 20) {
             PComp1.setCenterX(getXRadarChart(Double.parseDouble(Comp1.getText()), 1));
             PComp1.setCenterY(getYRadarChart(Double.parseDouble(Comp1.getText()), 1));
             ListErreur[0] = false;
@@ -169,7 +171,7 @@ public class ToileController implements Initializable {
             PComp1.setVisible(false);
             LineOk[0] = false;
             ListErreur[0] = true;
-        } if (Double.parseDouble(Comp2.getText()) >= 0 && Double.parseDouble(Comp2.getText()) <= 20) {
+        }  if (EstConforme(Comp2.getText()) && (Double.parseDouble(Comp2.getText()) >= 0 && Double.parseDouble(Comp2.getText()) <= 20)) {
             PComp2.setCenterX(getXRadarChart(Double.parseDouble(Comp2.getText()), 2));
             PComp2.setCenterY(getYRadarChart(Double.parseDouble(Comp2.getText()), 2));
             ListErreur[1] = false;
@@ -185,7 +187,7 @@ public class ToileController implements Initializable {
             PComp2.setVisible(false);
             LineOk[1] = false;
             ListErreur[1] = true;
-        } if (Double.parseDouble(Comp3.getText()) >= 0 && Double.parseDouble(Comp3.getText()) <= 20) {
+        }  if (EstConforme(Comp3.getText()) && (Double.parseDouble(Comp3.getText()) >= 0 && Double.parseDouble(Comp3.getText()) <= 20)) {
             PComp3.setCenterX(getXRadarChart(Double.parseDouble(Comp3.getText()), 3));
             PComp3.setCenterY(getYRadarChart(Double.parseDouble(Comp3.getText()), 3));
             ListErreur[2] = false;
@@ -201,7 +203,7 @@ public class ToileController implements Initializable {
             PComp3.setVisible(false);
             LineOk[2] = false;
             ListErreur[2] = true;
-        } if (Double.parseDouble(Comp4.getText()) >= 0 && Double.parseDouble(Comp4.getText()) <= 20) {
+        }  if (EstConforme(Comp4.getText()) && (Double.parseDouble(Comp4.getText()) >= 0 && Double.parseDouble(Comp4.getText()) <= 20)) {
             PComp4.setCenterX(getXRadarChart(Double.parseDouble(Comp4.getText()), 4));
             PComp4.setCenterY(getYRadarChart(Double.parseDouble(Comp4.getText()), 4));
             ListErreur[3] = false;
@@ -217,7 +219,7 @@ public class ToileController implements Initializable {
             PComp4.setVisible(false);
             LineOk[3] = false;
             ListErreur[0] = true;
-        } if (Double.parseDouble(Comp5.getText()) >= 0 && Double.parseDouble(Comp5.getText()) <= 20) {
+        }  if (EstConforme(Comp5.getText()) && (Double.parseDouble(Comp5.getText()) >= 0 && Double.parseDouble(Comp5 .getText()) <= 20)) {
             PComp5.setCenterX(getXRadarChart(Double.parseDouble(Comp5.getText()), 5));
             PComp5.setCenterY(getYRadarChart(Double.parseDouble(Comp5.getText()), 5));
             ListErreur[4] = false;
@@ -233,7 +235,7 @@ public class ToileController implements Initializable {
             PComp5.setVisible(false);
             LineOk[4] = false;
             ListErreur[4] = true;
-        } if (Double.parseDouble(Comp6.getText()) >= 0 && Double.parseDouble(Comp6.getText()) <= 20) {
+        }  if (EstConforme(Comp6.getText()) && (Double.parseDouble(Comp6.getText()) >= 0 && Double.parseDouble(Comp6 .getText()) <= 20)) {
             PComp6.setCenterX(getXRadarChart(Double.parseDouble(Comp6.getText()), 6));
             PComp6.setCenterY(getYRadarChart(Double.parseDouble(Comp6.getText()), 6));
             ListErreur[5] = false;
@@ -249,7 +251,7 @@ public class ToileController implements Initializable {
             PComp6.setVisible(false);
             LineOk[5] = false;
             ListErreur[5] = true;
-        }*/
+        }
         for (int i = 0; i < LineOk.length-1; i+=1) {
             if (LineOk[i] && LineOk[i+1]) {
                 ListLine[i].setVisible(true);
@@ -263,7 +265,7 @@ public class ToileController implements Initializable {
             ListLine[5].setVisible(false);
         }
         for (int i = 0; i < ListErreur.length; i+=1) {
-            if (LineOk[i]) {
+            if (!LineOk[i]) {
                 LabelErreur1.setVisible(true);
                 LabelErreur2.setVisible(true);
             } else {
@@ -272,7 +274,19 @@ public class ToileController implements Initializable {
             }
         }
     }
-    
+
+    public boolean EstConforme(String str) {
+        if (str.length() == 0) {
+            return false;
+        }
+        for (char c: str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void ViderPoints() {
         //Disparition du message d'erreur
         LabelErreur1.setVisible(false);
